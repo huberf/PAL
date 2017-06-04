@@ -1,0 +1,40 @@
+[
+  {
+    "name": "LastFMCount",
+    "verbage": [["Verb", ["lastfm"]], ["Period", ["today"]]],
+    "optional": []
+  },
+  {
+    "name": "WeatherIntent",
+    "verbage": [
+      ["WeatherKeyword", ["weather", "humidity"]]
+    ],
+    "optional": [
+      ["WeatherVerb", [
+          "tomorrow",
+          "weekend",
+          "today"
+        ]
+      ],
+      ["WeatherType", ["snow", "rain", "wind", "sleet", "sun"]],
+      ["Location", ["winchester", "cowan"]]
+    ]
+  },
+  {
+    "name": "StartIntent",
+    "verbage": [
+      ["StartVerb", ["start", "open", "launch"]],
+      ["Application", ["todoist", "vim"]]
+    ],
+    "optional": []
+  },
+  {
+    "name": "SwitchIntent",
+    "verbage": [
+      ["SwitchVerb", ["turn", "switch"]],
+      ["Application", ["off", "on"]],
+      ["Item", ["voice"]]
+    ],
+    "optional": []
+  }
+]
