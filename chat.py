@@ -44,12 +44,18 @@ def process(text):
         else:
             toReturn = 'Desired item can\'t be controlled.'
     elif action['intent_type'] == 'LastFMCount':
-        if action['Period'] == 'today':
+        try:
+            if action['Period'] == 'today':
+                period = 'today'
+            else:
+                toReturn = 'Unfortunately I don\'t support the provided period.'
+        except:
+            # Default to today if no period is specified
+            period = 'today'
+        if period == 'today':
             import lastfm
             output = lastfm.today_count()
             toReturn = 'You have scrobbled ' + str(output['dailyCount']) + ' tracks. ' + str(output['expectedCount']) + ' scrobbles expected.'
-        else:
-            toReturn = 'Unfortunately I don\'t support the provided period.'
     else:
         toReturn = "No action specified"
     return {'message': toReturn, 'image': image}

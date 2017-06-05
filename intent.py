@@ -26,6 +26,9 @@ for i in intentsJson:
     for i in verbage:
         for a in i[1]:
             engine.register_entity(a, i[0])
+    for i in optional:
+        for a in i[1]:
+            engine.register_entity(a, i[0])
     engine.register_intent_parser(intent)
 
 def process(text):

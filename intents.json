@@ -1,8 +1,8 @@
 [
   {
     "name": "LastFMCount",
-    "verbage": [["Verb", ["lastfm"]], ["Period", ["today"]]],
-    "optional": []
+    "verbage": [["Verb", ["lastfm", "last.fm", "scrobbled"]]],
+    "optional": [["Period", ["today", "this month", "this week"]]]
   },
   {
     "name": "WeatherIntent",
