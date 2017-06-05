@@ -7,7 +7,7 @@ import requests as r
 import json
 
 # Variable area
-claraLocation = 'http://localhost:2525/'
+claraLocation = os.environ['CLARA_SERVER']
 speak = False
 
 def process(text):
@@ -60,7 +60,10 @@ if __name__ == '__main__':
         query = raw_input('> ')
         if query.lower() == 'quit':
             exit = True
-        returned = process(query)
+        try:
+            returned = process(query)
+        except:
+            returned = {'message': 'Unable to perform desired action. Processing error occured.', 'image': 'None'}
         print(returned['message'])
         if speak:
             voice.speak(returned['message'])
