@@ -1,3 +1,6 @@
+# Operation vars and funcs
+failsafe = True
+
 import intent
 import voice
 import sys
@@ -5,6 +8,7 @@ import os
 import time
 import requests as r
 import json
+import mechanics
 
 # Variable area
 claraLocation = os.environ['CLARA_SERVER']
@@ -22,42 +26,18 @@ def process(text):
         resp = json.loads(rawResp)
         toReturn = resp['message']
         image = resp['image']
-    elif action["intent_type"] == "WeatherIntent":
-        import weather
-        response = weather.actuate(action)
-        toReturn = response
-    elif action["intent_type"] == "StartIntent":
-        toReturn = "Action not support yet."
-    elif action['intent_type'] == 'SwitchIntent':
-        toReturn = 'Switching ' + action['Item'] + ' ' + action['Application']
-        if action['Item'] == 'voice':
-            if action['Application'] == 'on':
-                if speak:
-                    toReturn = 'My voice is already on.'
-                else:
-                    speak = True
-            elif action['Application'] == 'off':
-                if speak:
-                    speak = False
-                else:
-                    toReturn = 'My voice is already off.'
-        else:
-            toReturn = 'Desired item can\'t be controlled.'
-    elif action['intent_type'] == 'LastFMCount':
-        try:
-            if action['Period'] == 'today':
-                period = 'today'
-            else:
-                toReturn = 'Unfortunately I don\'t support the provided period.'
-        except:
-            # Default to today if no period is specified
-            period = 'today'
-        if period == 'today':
-            import lastfm
-            output = lastfm.today_count()
-            toReturn = 'You have scrobbled ' + str(output['dailyCount']) + ' tracks. ' + str(output['expectedCount']) + ' scrobbles expected.'
     else:
-        toReturn = "Action not supported yet, or improperly specified."
+        params = action
+        params.update({'SPEAK.VOICE_STATUS': speak});
+        output = mechanics.functions[action['intent_type']](action)
+        if isinstance(output, str):
+            toReturn = output
+        else:
+            toReturn = output['message']
+            if output['cmd'] == 'SPEAK.VOICE_ON':
+                speak = True
+            elif output['cmd'] == 'SPEAK.VOICE_OFF':
+                speak = False
     return {'message': toReturn, 'image': image}
 
 if __name__ == '__main__':
@@ -66,10 +46,14 @@ if __name__ == '__main__':
         query = raw_input('> ')
         if query.lower() == 'quit':
             exit = True
-        try:
+        returned = {}
+        if failsafe:
+            try:
+                returned = process(query)
+            except:
+                returned = {'message': 'Unable to perform desired action. Processing error occured.', 'image': 'None'}
+        else:
             returned = process(query)
-        except:
-            returned = {'message': 'Unable to perform desired action. Processing error occured.', 'image': 'None'}
         print(returned['message'])
         if speak:
             voice.speak(returned['message'])

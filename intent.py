@@ -22,13 +22,24 @@ for i in intentsJson:
     name = i['name']
     verbage = i['verbage']
     optional = i['optional']
-    intent = generator.init(name, verbage, optional)
-    for i in verbage:
-        for a in i[1]:
-            engine.register_entity(a, i[0])
-    for i in optional:
-        for a in i[1]:
-            engine.register_entity(a, i[0])
+    try:
+        regex = i['regex']
+    except:
+        regex = []
+    intent = generator.init(name, verbage, optional, regex)
+    for z in verbage:
+        for a in z[1]:
+            engine.register_entity(a, z[0])
+    for z in optional:
+        for a in z[1]:
+            engine.register_entity(a, z[0])
+    try:
+        for z in i['regex']:
+            for a in z[1]:
+                engine.register_regex_entity(a)
+    except:
+        # No regex included
+        do_nothing = True
     engine.register_intent_parser(intent)
 
 def process(text):

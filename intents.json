@@ -1,7 +1,7 @@
 [
   {
     "name": "LastFMCount",
-    "verbage": [["Verb", ["lastfm", "last.fm", "scrobbled"]]],
+    "verbage": [["MusicVerb", ["lastfm", "last.fm", "scrobbled"]]],
     "optional": [["Period", ["today", "this month", "this week"]]]
   },
   {

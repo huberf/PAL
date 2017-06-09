@@ -1,4 +1,4 @@
-def init(name, verbage, optional):
+def init(name, verbage, optional, regex):
     import json
     import sys
     from adapt.entity_tagger import EntityTagger
@@ -13,21 +13,13 @@ def init(name, verbage, optional):
     tagger = EntityTagger(trie, tokenizer)
     parser = Parser(tokenizer, tagger)
 
-    engine = IntentDeterminationEngine()
-
-    for i in verbage:
-        for a in i[1]:
-            engine.register_entity(a, i[0])
-
-    for i in optional:
-        for a in i[1]:
-            engine.register_entity(a, i[0])
-
     intent = IntentBuilder(name)
     for i in verbage:
         intent = intent.require(i[0])
     for i in optional:
         intent = intent.optionally(i[0])
+    for i in regex:
+        intent = intent.require(i[0])
     intent = intent.build()
 
     is_working = True
