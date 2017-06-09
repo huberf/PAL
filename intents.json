@@ -36,5 +36,17 @@
       ["Item", ["voice"]]
     ],
     "optional": []
+  },
+  {
+    "name": "SimonSays",
+    "verbage": [["SpeechVerb", ["say", "dictate", "simon says"]]],
+    "optional": [],
+    "regex": [["Text", ["say (?P<Text>.*)", "dictate (?P<Text>.*)", "simon says (?P<Text>.*)"]]]
+  },
+  {
+    "name": "TestIntent",
+    "verbage": [["TestVerb", ["test"]]],
+    "optional": [],
+    "regex": [["Location", ["in (?P<Location>.*)", "out (?P<Location>.*)"]]]
   }
 ]

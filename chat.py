@@ -57,7 +57,7 @@ def process(text):
             output = lastfm.today_count()
             toReturn = 'You have scrobbled ' + str(output['dailyCount']) + ' tracks. ' + str(output['expectedCount']) + ' scrobbles expected.'
     else:
-        toReturn = "No action specified"
+        toReturn = "Action not supported yet, or improperly specified."
     return {'message': toReturn, 'image': image}
 
 if __name__ == '__main__':
