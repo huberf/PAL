@@ -44,6 +44,12 @@
     "regex": [["Text", ["say (?P<Text>.*)", "dictate (?P<Text>.*)", "simon says (?P<Text>.*)"]]]
   },
   {
+    "name": "ShellExecute",
+    "verbage": [["ExecuteVerb", ["execute", "execute the command"]]],
+    "optional": [],
+    "regex": [["Command", ["execute the command (?P<Command>.*)", "execute (?P<Command>.*)"]]]
+  },
+  {
     "name": "TestIntent",
     "verbage": [["TestVerb", ["test"]]],
     "optional": [],
