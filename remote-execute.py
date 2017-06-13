@@ -1,7 +1,6 @@
-# This is a standards compliant client for the PAL Command server
-# GitHub: https://github.com/huberf/pal-command
-
 from socketIO_client import SocketIO, LoggingNamespace
+import os
+import json
 import voice
 
 myId = 'main-client'
@@ -12,6 +11,8 @@ def execute(data):
         print('The message is: ' + data['command']['text'])
     elif data['command']['action'] == 'speak':
         voice.speak(data['command']['text'])
+    elif data['command']['action'] == 'exec':
+        os.system(data['command']['command'])
     else:
         success = False
         print('Can\'t process specified action.')
@@ -29,7 +30,9 @@ def on_command(data):
     print(data)
     execute(data)
 
-socketIO = SocketIO('localhost', 1999, LoggingNamespace)
+dataFile = open('config.json')
+config = json.load(dataFile)
+socketIO = SocketIO(config['servers']['pal-command']['server'], config['servers']['pal-command']['port'], LoggingNamespace)
 socketIO.on('handshake', on_handshake)
 socketIO.on('command', on_command)
 
