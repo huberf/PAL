@@ -10,8 +10,10 @@ import requests as r
 import json
 import mechanics
 
+config = json.load(open('config.json'))
+
 # Variable area
-claraLocation = os.environ['CLARA_SERVER']
+claraLocation = config['servers']['clara']['url']
 speak = False
 
 def process(text):
@@ -30,7 +32,7 @@ def process(text):
         params = action
         params.update({'SPEAK.VOICE_STATUS': speak});
         output = mechanics.functions[action['intent_type']](action)
-        if isinstance(output, str):
+        if isinstance(output, (str, unicode)):
             toReturn = output
         else:
             toReturn = output['message']

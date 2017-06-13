@@ -27,7 +27,8 @@ the Clara mobile app.
 * Run `python chat.py` and attempt typing `Launch vim`.
 * If success, you can now do things such as get a Dark Sky API token and add is
   as an environement variable at `DARK_SKY_KEY`.
-* It's also recommend to connect to a clara instance at the Clara repo (to be
-  added)
+* It's also recommended to connect to a clara instance at the [Clara
+  repo](https://github.com/huberf/clara-bot). If the Clara instance isn't local,
+  you can modify `config.json` with the URL.
 * If you use [last.fm](http://last.fm) you can also hook this up by editing the
   username in `lastfm.py`.

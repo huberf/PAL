@@ -3,6 +3,9 @@
     "pal-command": {
       "server": "localhost",
       "port": "1999"
+    },
+    "clara": {
+      "url": "http://localhost:2525/"
     }
   }
 }
