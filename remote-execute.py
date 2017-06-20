@@ -13,6 +13,8 @@ def execute(data):
         voice.speak(data['command']['text'])
     elif data['command']['action'] == 'exec':
         os.system(data['command']['command'])
+    elif data['command']['action'] == 'open':
+        os.system('open ' + data['command']['path'])
     else:
         success = False
         print('Can\'t process specified action.')

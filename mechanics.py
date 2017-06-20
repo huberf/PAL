@@ -1,13 +1,37 @@
+# Global configurations
+remote = False
+
 import requests as r
+import json
 import os
 import voice
+
+config = json.loads(open('config.json').read())
+commandServer ='http://' + config['servers']['pal-command']['server'] + ':' + config['servers']['pal-command']['port'] + '/'
 
 def weatherIntent(params):
     import weather
     return weather.actuate(params)
 
 def startIntent(params):
-    return "Application not supported yet."
+    applications = json.loads(open('data/applications.json').read())
+    foundApplication = False
+    applicationPath = None
+    for i in applications:
+        for a in i['keywords']:
+            if params['Application'] == a.lower():
+                foundApplication = True
+                applicationPath = i['path']
+                break
+    if foundApplication:
+        if remote:
+            r.post(commandServer + 'add/main-client', json={'command': {'action': 'open', 'path': applicationPath}})
+        else:
+            os.system('open ' + applicationPath)
+    if not foundApplication:
+        return "Application not supported yet."
+    else:
+        return "Launching application " + params['Application'] + '.'
 
 def switchIntent(params):
     toReturn = 'Switching ' + params['Item'] + ' ' + params['Application']
@@ -45,7 +69,10 @@ def lastFMCount(params):
     return toReturn
 
 def simonSays(params):
-    voice.speak(params['Text'])
+    if remote:
+        r.post(commandServer + 'add/main-client', json={'command': {'action': 'speak', 'text': params['Text']}})
+    else:
+        voice.speak(params['Text'])
     return 'Speaking: ' + params['Text']
 
 def shellExecute(params):
