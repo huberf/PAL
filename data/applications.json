@@ -1,7 +1,26 @@
 [
   {
+    "name": "Todoist",
     "keywords": ["Todoist", "to-do list"],
     "path": "/Applications/Todoist.app",
-    "description": "This a powerful to-do list manager with robust developer API."
+    "description": "This is a powerful to-do list manager with robust developer API."
+  },
+  {
+    "name": "VLC",
+    "keywords": ["VLC"],
+    "path": "/Applications/VLC.app",
+    "description": "This is a media player with vast customaization and compatibilty."
+  },
+  {
+    "name": "Android Studio",
+    "keywords": ["Android Studio"],
+    "path": "/Applications/Android\\ Studio.app",
+    "description": "This is the development platform for the Android OS."
+  },
+  {
+    "name": "Anki",
+    "keywords": ["Anki"],
+    "path": "/Applications/Anki.app",
+    "description": "This is a powerful tool for memorizing information."
   }
 ]

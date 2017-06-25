@@ -1,5 +1,6 @@
 # Global configurations
 remote = False
+remoteMachine = 'main-client'
 
 import requests as r
 import json
@@ -16,22 +17,24 @@ def weatherIntent(params):
 def startIntent(params):
     applications = json.loads(open('data/applications.json').read())
     foundApplication = False
+    applicationName = None
     applicationPath = None
     for i in applications:
         for a in i['keywords']:
             if params['Application'] == a.lower():
                 foundApplication = True
                 applicationPath = i['path']
+                applicationName = i['name']
                 break
     if foundApplication:
         if remote:
-            r.post(commandServer + 'add/main-client', json={'command': {'action': 'open', 'path': applicationPath}})
+            r.post(commandServer + 'add/' + remoteMachine, json={'command': {'action': 'open', 'path': applicationPath}})
         else:
             os.system('open ' + applicationPath)
     if not foundApplication:
         return "Application not supported yet."
     else:
-        return "Launching application " + params['Application'] + '.'
+        return "Launching application " + applicationName + '.'
 
 def switchIntent(params):
     toReturn = 'Switching ' + params['Item'] + ' ' + params['Application']
@@ -70,7 +73,7 @@ def lastFMCount(params):
 
 def simonSays(params):
     if remote:
-        r.post(commandServer + 'add/main-client', json={'command': {'action': 'speak', 'text': params['Text']}})
+        r.post(commandServer + 'add/' + remoteMachine, json={'command': {'action': 'speak', 'text': params['Text']}})
     else:
         voice.speak(params['Text'])
     return 'Speaking: ' + params['Text']
