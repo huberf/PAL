@@ -1,13 +1,13 @@
+import json
 # Global configurations
-remote = False
-remoteMachine = 'main-client'
+config = json.loads(open('config.json').read())
+remote = True
+remoteMachine = config['identities']['pal-command']
 
 import requests as r
-import json
 import os
 import voice
 
-config = json.loads(open('config.json').read())
 commandServer ='http://' + config['servers']['pal-command']['server'] + ':' + config['servers']['pal-command']['port'] + '/'
 
 def weatherIntent(params):
@@ -82,6 +82,24 @@ def shellExecute(params):
     os.system(params['Command'])
     return 'Command executed.'
 
+def todoistAdd(params):
+    if not config['keys']['todoist'] == 'None':
+        if not params['Text'] == None:
+            dataToSend = {
+                'token': config['keys']['todoist'],
+                'text': params['Text']
+                }
+            try:
+                dataToSend['text'] += ' ' + params['TodoistDate']
+            except:
+                doNothing = True
+            r.post('https://todoist.com/API/v7/quick/add', dataToSend)
+            return 'Task added to Todoist.'
+        else:
+            return 'Task addition failed due to lack of task text.'
+    else:
+        return 'You need to configure the Todoist skill with your Todoist API key.'
+
 def testIntent(params):
     print(params)
     return 'Test complete'
@@ -93,5 +111,6 @@ functions = {
         'LastFMCount': lastFMCount,
         'SimonSays': simonSays,
         'ShellExecute': shellExecute,
+        'TodoistAdd': todoistAdd,
         'TestIntent': testIntent
         }

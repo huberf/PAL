@@ -23,10 +23,12 @@
   {
     "name": "StartIntent",
     "verbage": [
-      ["StartVerb", ["start", "open", "launch"]],
-      ["Application", ["todoist", "vim"]]
+      ["StartVerb", ["start", "open", "launch"]]
     ],
-    "optional": []
+    "optional": [
+      ["ApplicationName", ["todoist", "vim"]]
+    ],
+    "regex": [["Application", ["open (?P<Application>.*)", "start (?P(<Application>.*)", "launch (?P<Application>.*)"]]]
   },
   {
     "name": "SwitchIntent",
@@ -48,6 +50,12 @@
     "verbage": [["ExecuteVerb", ["execute", "execute the command"]]],
     "optional": [],
     "regex": [["Command", ["execute the command (?P<Command>.*)", "execute (?P<Command>.*)"]]]
+  },
+  {
+    "name": "TodoistAdd",
+    "verbage": [["TodoistVerb", ["todoist", "to-do list", "todo list", "i need to"]]],
+    "optional": [["TodoistDate", ["today", "tomorrow", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]]],
+    "regex": [["Text", ["todoist add (?P<Text>.*)", "i need to (?P<Text>.*)"]]]
   },
   {
     "name": "TestIntent",
