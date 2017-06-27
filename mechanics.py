@@ -1,7 +1,8 @@
 import json
 # Global configurations
 config = json.loads(open('config.json').read())
-remote = True
+# This variable decides if commands are executed locally or on a remote machine
+remote = config['remote']
 remoteMachine = config['identities']['pal-command']
 
 import requests as r
