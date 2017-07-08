@@ -1,0 +1,36 @@
+{
+  "owned": [
+    {
+      "symbol": "VPL",
+      "quantity": 1
+    },
+    {
+      "symbol": "SPY",
+      "quantity": 2
+    },
+    {
+      "symbol": "VWO",
+      "quantity": 2
+    },
+    {
+      "symbol": "MSFT",
+      "quantity": 1
+    },
+    {
+      "symbol": "V",
+      "quantity": 1
+    },
+    {
+      "symbol": "FB",
+      "quantity": 1
+    },
+    {
+      "symbol": "WM",
+      "quantity": 1
+    },
+    {
+      "symbol": "AHT",
+      "quantity": 1
+    }
+  ]
+}

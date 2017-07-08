@@ -1,2 +1,4 @@
 adapt
 lastpy
+google-api-python-client
+googlefinance

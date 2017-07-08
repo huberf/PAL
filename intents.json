@@ -53,9 +53,14 @@
   },
   {
     "name": "TodoistAdd",
-    "verbage": [["TodoistVerb", ["todoist", "to-do list", "todo list", "i need to"]]],
+    "verbage": [["TodoistVerb", ["todoist add", "i need to"]]],
     "optional": [["TodoistDate", ["today", "tomorrow", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]]],
     "regex": [["Text", ["todoist add (?P<Text>.*)", "i need to (?P<Text>.*)"]]]
+  },
+  {
+    "name": "StockSum",
+    "verbage": [["StockSumVerb", ["stock sum", "stock valuation"]]],
+    "optional": []
   },
   {
     "name": "TestIntent",

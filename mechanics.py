@@ -101,6 +101,17 @@ def todoistAdd(params):
     else:
         return 'You need to configure the Todoist skill with your Todoist API key.'
 
+def stockSum(params):
+    from googlefinance import getQuotes
+    stocks = json.loads(open('./data/stocks.json').read())
+    stockAmounts = getQuotes(map(lambda x: x['symbol'], stocks['owned']))
+    sumOfIt = 0
+    index = 0
+    for i in stockAmounts:
+        sumOfIt += float(i['LastTradePrice']) * stocks['owned'][index]['quantity']
+        index += 1
+    return 'You current stock valuation is $' + str(sumOfIt) + '.'
+
 def testIntent(params):
     print(params)
     return 'Test complete'
@@ -113,5 +124,6 @@ functions = {
         'SimonSays': simonSays,
         'ShellExecute': shellExecute,
         'TodoistAdd': todoistAdd,
+        'StockSum': stockSum,
         'TestIntent': testIntent
         }
