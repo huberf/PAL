@@ -16,5 +16,8 @@
     "pal-command": "main-client"
   },
   "deactivated-skills": [
+    "TodoistAdd",
+    "LastFMCount",
+    "WeatherIntent"
   ]
 }

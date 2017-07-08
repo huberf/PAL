@@ -1,5 +1,6 @@
 # Operation vars and funcs
 failsafe = True
+offline = False
 
 import intent
 import voice
@@ -10,7 +11,11 @@ import requests as r
 import json
 import mechanics
 
-config = json.load(open('config.json'))
+if not offline:
+    config = json.load(open('config.json'))
+else:
+    config = json.load(open('offline.json'))
+deactivated_skills = config['deactivated-skills']
 
 # Variable area
 claraLocation = config['servers']['clara']['url']
@@ -31,7 +36,10 @@ def process(text):
     else:
         params = action
         params.update({'SPEAK.VOICE_STATUS': speak});
-        output = mechanics.functions[action['intent_type']](action)
+        if not action['intent_type'] in deactivated_skills:
+            output = mechanics.functions[action['intent_type']](action)
+        else:
+            output = 'Unfortunately, the skill requested doesn\'t work with your current setup.'
         if isinstance(output, (str, unicode)):
             toReturn = output
         else:
