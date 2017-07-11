@@ -3,7 +3,9 @@ import os
 import json
 import voice
 
-myId = 'main-client'
+config = json.loads(open('config.json').read())
+
+myId = config['identities']['pal-command']
 
 def execute(data):
     success = True
