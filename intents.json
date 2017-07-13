@@ -63,6 +63,11 @@
     "optional": []
   },
   {
+    "name": "StockIncrease",
+    "verbage": [["StockIncreaseVerb", ["stock increase", "stock profits", "stock gains"]]],
+    "optional": [["StockTiming", ["since yesterday", "since this morning", "since this past month", "over this past month"]]]
+  },
+  {
     "name": "TestIntent",
     "verbage": [["TestVerb", ["test"]]],
     "optional": [],

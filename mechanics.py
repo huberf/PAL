@@ -8,6 +8,7 @@ remoteMachine = config['identities']['pal-command']
 import requests as r
 import os
 import voice
+import stocks
 
 commandServer ='http://' + config['servers']['pal-command']['server'] + ':' + config['servers']['pal-command']['port'] + '/'
 
@@ -102,15 +103,12 @@ def todoistAdd(params):
         return 'You need to configure the Todoist skill with your Todoist API key.'
 
 def stockSum(params):
-    from googlefinance import getQuotes
-    stocks = json.loads(open('./data/stocks.json').read())
-    stockAmounts = getQuotes(map(lambda x: x['symbol'], stocks['owned']))
-    sumOfIt = 0
-    index = 0
-    for i in stockAmounts:
-        sumOfIt += float(i['LastTradePrice']) * stocks['owned'][index]['quantity']
-        index += 1
-    return 'You current stock valuation is $' + str(sumOfIt) + '.'
+    sumOfIt = stocks.netAssets()
+    return 'Your current stock valuation is $' + str(sumOfIt) + '.'
+
+def stockIncrease(params):
+    profits = stocks.currentProfits()
+    return 'Your current stock increase is $' + str(profits) + '.'
 
 def testIntent(params):
     print(params)
@@ -125,5 +123,6 @@ functions = {
         'ShellExecute': shellExecute,
         'TodoistAdd': todoistAdd,
         'StockSum': stockSum,
+        'StockIncrease': stockIncrease,
         'TestIntent': testIntent
         }

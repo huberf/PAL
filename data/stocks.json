@@ -1,4 +1,6 @@
 {
+  "totalInvested": 1412.96,
+  "uninvested": 212.59,
   "owned": [
     {
       "symbol": "VPL",
@@ -9,8 +11,12 @@
       "quantity": 2
     },
     {
+      "symbol": "QQQ",
+      "quantity": 1
+    },
+    {
       "symbol": "VWO",
-      "quantity": 2
+      "quantity": 3
     },
     {
       "symbol": "MSFT",
