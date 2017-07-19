@@ -21,8 +21,17 @@ deactivated_skills = config['deactivated-skills']
 claraLocation = config['servers']['clara']['url']
 speak = False
 
+# Utility functions
+def query_user(message):
+    print(message)
+    if speak:
+        voice.speak(message)
+    response = raw_input('> ')
+    return response
+
+
 def process(text):
-    global speak, claraLocation
+    global speak, claraLocation, query_user
     action = intent.process(text)
     toReturn = 'None'
     image = 'None'
@@ -35,7 +44,7 @@ def process(text):
         image = resp['image']
     else:
         params = action
-        params.update({'SPEAK.VOICE_STATUS': speak});
+        params.update({'SPEAK.VOICE_STATUS': speak, 'IO.QUERY_USER': query_user});
         if not action['intent_type'] in deactivated_skills:
             output = mechanics.functions[action['intent_type']](action)
         else:

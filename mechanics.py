@@ -110,6 +110,11 @@ def stockIncrease(params):
     profits = stocks.currentProfits()
     return 'Your current stock increase is $' + str(profits) + '.'
 
+def nomieLog(params):
+    nomieProxyServer = config['servers']['nomie-proxy']
+    r.get(nomieProxyServer['url'] + nomieProxyServer['secret'] + '/' + params['NomieItem'])
+    return 'I have logged that you ' + params['NomieItem'] + '.'
+
 def testIntent(params):
     print(params)
     return 'Test complete'
@@ -124,5 +129,6 @@ functions = {
         'TodoistAdd': todoistAdd,
         'StockSum': stockSum,
         'StockIncrease': stockIncrease,
+        'NomieLog': nomieLog,
         'TestIntent': testIntent
         }

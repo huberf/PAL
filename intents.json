@@ -68,6 +68,12 @@
     "optional": [["StockTiming", ["since yesterday", "since this morning", "since this past month", "over this past month"]]]
   },
   {
+    "name": "NomieLog",
+    "verbage": [["NomieLogVerb", ["log that i"]]],
+    "optional": [],
+    "regex": [["NomieItem", ["log that i (?P<NomieItem>.*)"]]]
+  },
+  {
     "name": "TestIntent",
     "verbage": [["TestVerb", ["test"]]],
     "optional": [],
