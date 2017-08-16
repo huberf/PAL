@@ -74,6 +74,12 @@
     "regex": [["NomieItem", ["log that i (?P<NomieItem>.*)"]]]
   },
   {
+    "name": "NomieCount",
+    "verbage": [["NomieCountVerb", ["tracker count for", "nomie count", "tracker count of"]]],
+    "optional": [],
+    "regex": [["NomieTrackername", ["count for (?P<NomieTrackername>.*)"]]]
+  },
+  {
     "name": "TestIntent",
     "verbage": [["TestVerb", ["test"]]],
     "optional": [],

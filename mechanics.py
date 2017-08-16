@@ -115,6 +115,14 @@ def nomieLog(params):
     r.get(nomieProxyServer['url'] + nomieProxyServer['secret'] + '/' + params['NomieItem'])
     return 'I have logged that you ' + params['NomieItem'] + '.'
 
+def nomieCount(params):
+    nomieComputeServer = config['servers']['compute-nomie']
+    data = json.loads(r.get(nomieComputeServer['url'] + 'count', { 'label': params['NomieTrackername'], 'start': 1 }).text)
+    if data['success']:
+        return 'The count for tracker ' + params['NomieTrackername'] + ' is ' + str(data['count'])
+    else:
+        return 'Server responded with a failure and the message ' + data['message']
+
 def testIntent(params):
     print(params)
     return 'Test complete'
@@ -130,5 +138,6 @@ functions = {
         'StockSum': stockSum,
         'StockIncrease': stockIncrease,
         'NomieLog': nomieLog,
+        'NomieCount': nomieCount,
         'TestIntent': testIntent
         }
