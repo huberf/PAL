@@ -17,7 +17,11 @@
     }
   },
   "keys": {
-    "todoist": "None"
+    "todoist": "None",
+    "strava": {
+      "id": 0,
+      "token": "None"
+    }
   },
   "identities": {
     "pal-command": "main-client"

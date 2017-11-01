@@ -123,6 +123,14 @@ def nomieCount(params):
     else:
         return 'Server responded with a failure and the message ' + data['message']
 
+def exerciseManager(params):
+    try:
+        strava_id = params['strava']['id']
+        response = "Your ID is " + str(strava_id)
+        return response
+    except:
+        return "Skill failure."
+
 def testIntent(params):
     print(params)
     return 'Test complete'
@@ -139,5 +147,6 @@ functions = {
         'StockIncrease': stockIncrease,
         'NomieLog': nomieLog,
         'NomieCount': nomieCount,
+        'ExerciseManager': exerciseManager,
         'TestIntent': testIntent
         }

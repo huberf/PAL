@@ -1,7 +1,7 @@
 [
   {
     "name": "LastFMCount",
-    "verbage": [["MusicVerb", ["lastfm", "last.fm", "scrobbled"]]],
+    "verbage": [["MusicVerb", ["lastfm", "last.fm", "scrobbled", "music log count"]]],
     "optional": [["Period", ["today", "this month", "this week"]]]
   },
   {
@@ -78,6 +78,12 @@
     "verbage": [["NomieCountVerb", ["tracker count for", "nomie count", "tracker count of"]]],
     "optional": [],
     "regex": [["NomieTrackername", ["count for (?P<NomieTrackername>.*)"]]]
+  },
+  {
+    "name": "ExerciseManager",
+    "verbage": [["ExerciseManagerVerb", ["latest run", "latest walk", "latest workout"]]],
+    "optional": [["ExerciseManagerRandom", ["strava", "running"]]],
+    "permissions": ["STRAVA_KEYS"]
   },
   {
     "name": "TestIntent",

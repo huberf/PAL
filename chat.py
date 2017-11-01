@@ -1,5 +1,5 @@
 # Operation vars and funcs
-failsafe = True
+failsafe = False
 offline = False
 
 import intent
@@ -17,9 +17,35 @@ else:
     config = json.load(open('offline.json'))
 deactivated_skills = config['deactivated-skills']
 
+# Load intent data
+intents = json.load(open('intents.json'))
+
+# Load addtional user data
+gps_info = json.load(open('data/gps.json'))
+
 # Variable area
 claraLocation = config['servers']['clara']['url']
 speak = False
+
+# Handles loading of requirements and permissions
+def load_additional_config(intentName):
+    intent = None
+    for i in intents:
+        if i['name'] == intentName:
+            intent = i
+            break
+    to_return = {}
+    try:
+        permissions = intent['permissions']
+        for i in permissions:
+            if i == 'STRAVA_KEYS':
+                to_return.update(config['keys']['strava'])
+            if i == 'TODOIST_KEY':
+                to_return.update(config['keys']['todoist'])
+    except:
+        # No special information needed
+        do_nothing = True
+    return to_return
 
 # Utility functions
 def query_user(message):
@@ -29,6 +55,11 @@ def query_user(message):
     response = raw_input('> ')
     return response
 
+def query_clara(text):
+    data = {'input': text}
+    rawResp = r.post(claraLocation + 'converse', json=data).text
+    resp = json.loads(rawResp)
+    return resp
 
 def process(text):
     global speak, claraLocation, query_user
@@ -37,15 +68,15 @@ def process(text):
     image = 'None'
     if action == None:
         # Chat mode
-        data = {'input': text}
-        rawResp = r.post(claraLocation + 'converse', json=data).text
-        resp = json.loads(rawResp)
+        resp = query_clara(text)
         toReturn = resp['message']
         image = resp['image']
     else:
         params = action
-        params.update({'SPEAK.VOICE_STATUS': speak, 'IO.QUERY_USER': query_user});
+        params.update({'SPEAK.VOICE_STATUS': speak, 'IO.QUERY_USER': query_user, 'CLARA.QUERY': query_clara, 'QUERY': text, 'LOCATION.GPS': gps_info});
         if not action['intent_type'] in deactivated_skills:
+            additional_params = load_additional_config(action['intent_type'])
+            params.update(additional_params)
             output = mechanics.functions[action['intent_type']](action)
         else:
             output = 'Unfortunately, the skill requested doesn\'t work with your current setup.'
