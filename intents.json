@@ -33,11 +33,12 @@
   {
     "name": "SwitchIntent",
     "verbage": [
-      ["SwitchVerb", ["turn", "switch"]],
       ["Application", ["off", "on"]],
       ["Item", ["voice"]]
     ],
-    "optional": []
+    "optional": [
+      ["SwitchVerb", ["turn", "switch"]]
+    ]
   },
   {
     "name": "SimonSays",
