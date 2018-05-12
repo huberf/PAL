@@ -57,7 +57,7 @@ def query_user(message):
 
 def query_clara(text):
     data = {'input': text}
-    rawResp = r.post(claraLocation + 'converse', json=data).text
+    rawResp = r.post(claraLocation + 'api/v1/io/blocking', data).text
     resp = json.loads(rawResp)
     return resp
 
@@ -70,7 +70,7 @@ def process(text):
         # Chat mode
         resp = query_clara(text)
         toReturn = resp['message']
-        image = resp['image']
+        # image = resp['image']
     else:
         params = action
         params.update({'SPEAK.VOICE_STATUS': speak, 'IO.QUERY_USER': query_user, 'CLARA.QUERY': query_clara, 'QUERY': text, 'LOCATION.GPS': gps_info});
