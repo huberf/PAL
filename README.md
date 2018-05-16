@@ -29,6 +29,8 @@ the Clara mobile app.
   as an environement variable at `DARK_SKY_KEY`.
 * It's also recommended to connect to a clara instance at the [Clara
   repo](https://github.com/huberf/clara-bot). If the Clara instance isn't local,
-  you can modify `config.json` with the URL.
+  you can modify `config.json` with the URL. To install Clara, run `pip install
+  clara` and then in a directory of your choice, set up the system by typing
+  `clara` and it will populate the needed files.
 * If you use [last.fm](http://last.fm) you can also hook this up by editing the
   username in `lastfm.py`.
