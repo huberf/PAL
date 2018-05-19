@@ -126,10 +126,21 @@ def nomieCount(params):
 def exerciseManager(params):
     try:
         strava_id = params['strava']['id']
+        strava_token = params['strava']['token']
+        import strava
+        myData = strava.StravaData(strava_id, strava_token)
+        print(myData.getActivities())
         response = "Your ID is " + str(strava_id)
         return response
     except:
         return "Skill failure."
+
+def search(params):
+    import webbrowser
+    baseUrl = 'https://www.google.com/search?q='
+    fullUrl = baseUrl + params['Query'].replace(' ', '+')
+    webbrowser.open(fullUrl)
+    return "Query complete for " + params['Query'] + '.'
 
 def testIntent(params):
     print(params)
@@ -148,5 +159,6 @@ functions = {
         'NomieLog': nomieLog,
         'NomieCount': nomieCount,
         'ExerciseManager': exerciseManager,
+        'Search': search,
         'TestIntent': testIntent
         }

@@ -87,6 +87,12 @@
     "permissions": ["STRAVA_KEYS"]
   },
   {
+    "name": "Search",
+    "verbage": [["SearchVerb", ["search for", "query for"]]],
+    "optional": [],
+    "regex": [["Query", ["search for (?P<Query>.*)", "query for (?P<Query>.*)"]]]
+  },
+  {
     "name": "TestIntent",
     "verbage": [["TestVerb", ["test"]]],
     "optional": [],
