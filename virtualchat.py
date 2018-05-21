@@ -80,7 +80,10 @@ def process(text):
             # Set up and send query
             remote = config['remote']
             remoteMachine = config['identities']['pal-command']
-            output = mechanics.functions[action['intent_type']](action)
+            remoteLocation = config['servers']['pal-command']
+            remoteUrl = 'http://' + remoteLocation['server'] + ':' + remoteLocation['port'] + '/'
+            r.post(remoteUrl + 'add/' + remoteMachine, json={'command': action })
+            output = 'Request sent.'
         else:
             output = 'Unfortunately, the skill requested doesn\'t work with your current setup.'
         if isinstance(output, (str, unicode)):
