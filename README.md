@@ -22,7 +22,7 @@ file integrates with the Clara standard and can therefore be accessed through
 the Clara mobile app.
 
 # Setup
-* First clone the repo at [to be added](/#)
+* First clone the repo at [huberf/PAL](https://github.com/huberf/PAL)
 * Now install all requirements in `requirements.txt`
 * Run `python chat.py` and attempt typing `Launch vim`.
 * If success, you can now do things such as get a Dark Sky API token and add is
