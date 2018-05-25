@@ -34,3 +34,8 @@ the Clara mobile app.
   `clara` and it will populate the needed files.
 * If you use [last.fm](http://last.fm) you can also hook this up by editing the
   username in `lastfm.py`.
+
+# Contributions
+Please feel free to open an issue or PR if you've found a bug. If you're looking
+to implement a feature, please open an issue before creating a PR so I can review
+it and make sure it's something that should be added.
