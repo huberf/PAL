@@ -39,3 +39,6 @@ the Clara mobile app.
 Please feel free to open an issue or PR if you've found a bug. If you're looking
 to implement a feature, please open an issue before creating a PR so I can review
 it and make sure it's something that should be added.
+
+# License
+This project is release under the MIT License. See `LICENSE` for info.
