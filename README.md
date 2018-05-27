@@ -5,7 +5,7 @@ with your existing tools and automation functions while provide a feature
 complete natural language processing engine that can determine intents while
 also integrating with the Clara program for general purpose chatting.
 
-# Overview
+## Overview
 All intents are stored in `intents.json` and adding new ones is as easy as
 adding a simple JSON string. You can setup a personal Clara instance at any
 location so long as it is network accessible and then add the endpoint into the
@@ -21,7 +21,7 @@ can also launch `web.py` to make the service network accessible. The `web.py`
 file integrates with the Clara standard and can therefore be accessed through
 the Clara mobile app.
 
-# Setup
+## Setup
 * First clone the repo at [huberf/PAL](https://github.com/huberf/PAL)
 * Now install all requirements in `requirements.txt`
 * Run `python chat.py` and attempt typing `Launch vim`.
@@ -35,10 +35,10 @@ the Clara mobile app.
 * If you use [last.fm](http://last.fm) you can also hook this up by editing the
   username in `lastfm.py`.
 
-# Contributions
+## Contributions
 Please feel free to open an issue or PR if you've found a bug. If you're looking
 to implement a feature, please open an issue before creating a PR so I can review
 it and make sure it's something that should be added.
 
-# License
+## License
 This project is release under the MIT License. See `LICENSE` for info.
