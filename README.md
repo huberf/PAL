@@ -35,6 +35,12 @@ the Clara mobile app.
 * If you use [last.fm](http://last.fm) you can also hook this up by editing the
   username in `lastfm.py`.
 
+
+## Remote Operation
+PAL supports operating in an enclosed server environment with multiple clients
+providing requests to the system via web sockets and API calls.
+Instructions to be added...
+
 ## Contributions
 Please feel free to open an issue or PR if you've found a bug. If you're looking
 to implement a feature, please open an issue before creating a PR so I can review
