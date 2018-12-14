@@ -93,6 +93,12 @@
     "regex": [["Query", ["search for (?P<Query>.*)", "query for (?P<Query>.*)"]]]
   },
   {
+    "name": "SetLocation",
+    "verbage": [["SetLocationVerb", ["set location to", "switch location to", "update location to"]]],
+    "optional": [],
+    "regex": [["NewLocation", ["to (?P<NewLocation>.*)"]]]
+  },
+  {
     "name": "TestIntent",
     "verbage": [["TestVerb", ["test"]]],
     "optional": [],

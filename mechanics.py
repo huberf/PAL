@@ -142,6 +142,9 @@ def search(params):
     webbrowser.open(fullUrl)
     return "Query complete for " + params['Query'] + '.'
 
+def setLocation(params):
+    return "Skill under construction."
+
 def testIntent(params):
     print(params)
     return 'Test complete'
@@ -160,5 +163,6 @@ functions = {
         'NomieCount': nomieCount,
         'ExerciseManager': exerciseManager,
         'Search': search,
+        'SetLocation': setLocation,
         'TestIntent': testIntent
         }
