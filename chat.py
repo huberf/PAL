@@ -1,5 +1,8 @@
+from __future__ import absolute_import, division, print_function
+from future.builtins.misc import (ascii, chr, hex, input, next,
+                                  oct, open, pow, round, super)
 # Operation vars and funcs
-failsafe = False
+failsafe = True
 offline = False
 
 import intent
@@ -52,7 +55,7 @@ def query_user(message):
     print(message)
     if speak:
         voice.speak(message)
-    response = raw_input('> ')
+    response = input('> ')
     return response
 
 def query_clara(text):
@@ -93,7 +96,7 @@ def process(text):
 if __name__ == '__main__':
     exit = False
     while not exit:
-        query = raw_input('> ')
+        query = input('> ')
         if query.lower() == 'quit':
             exit = True
         returned = {}
