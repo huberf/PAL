@@ -1,6 +1,3 @@
-from __future__ import absolute_import, division, print_function
-from future.builtins.misc import (ascii, chr, hex, input, next,
-                                  oct, open, pow, round, super)
 # Operation vars and funcs
 failsafe = True
 offline = False
@@ -42,7 +39,7 @@ def load_additional_config(intentName):
         permissions = intent['permissions']
         for i in permissions:
             if i == 'STRAVA_KEYS':
-                to_return.update(config['keys']['strava'])
+                to_return.update({'strava': config['keys']['strava']})
             if i == 'TODOIST_KEY':
                 to_return.update(config['keys']['todoist'])
     except:
@@ -55,12 +52,13 @@ def query_user(message):
     print(message)
     if speak:
         voice.speak(message)
-    response = input('> ')
+    response = raw_input('> ')
     return response
 
 def query_clara(text):
     data = {'input': text}
-    rawResp = r.post(claraLocation + 'api/v1/io/blocking', data).text
+    rawResp = r.post(claraLocation + 'api/v1/io/blocking/pal', data).text
+    print(rawResp)
     resp = json.loads(rawResp)
     return resp
 
@@ -73,7 +71,7 @@ def process(text):
         # Chat mode
         resp = query_clara(text)
         toReturn = resp['message']
-        # image = resp['image']
+        image = resp['image']
     else:
         params = action
         params.update({'SPEAK.VOICE_STATUS': speak, 'IO.QUERY_USER': query_user, 'CLARA.QUERY': query_clara, 'QUERY': text, 'LOCATION.GPS': gps_info});
@@ -96,7 +94,7 @@ def process(text):
 if __name__ == '__main__':
     exit = False
     while not exit:
-        query = input('> ')
+        query = raw_input('> ')
         if query.lower() == 'quit':
             exit = True
         returned = {}
