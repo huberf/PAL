@@ -2,6 +2,11 @@
 failsafe = True
 offline = False
 
+# Global Imports
+import curses
+from curses import textpad
+
+# Local Imports
 import intent
 import voice
 import sys
@@ -10,6 +15,7 @@ import time
 import requests as r
 import json
 import mechanics
+import asyncconsole
 
 if not offline:
     config = json.load(open('config.json'))
@@ -53,12 +59,14 @@ def query_user(message):
     if speak:
         voice.speak(message)
     response = raw_input('> ')
+    if response == '\n':
+        print('Just the line...?')
     return response
 
 def query_clara(text):
     data = {'input': text}
     rawResp = r.post(claraLocation + 'api/v1/io/blocking/pal', data).text
-    print(rawResp)
+    #print(rawResp)
     resp = json.loads(rawResp)
     return resp
 
@@ -71,7 +79,10 @@ def process(text):
         # Chat mode
         resp = query_clara(text)
         toReturn = resp['message']
-        image = resp['image']
+        if 'image' in resp.keys():
+            image = resp['image']
+        else:
+            image = None
     else:
         params = action
         params.update({'SPEAK.VOICE_STATUS': speak, 'IO.QUERY_USER': query_user, 'CLARA.QUERY': query_clara, 'QUERY': text, 'LOCATION.GPS': gps_info});
@@ -91,10 +102,13 @@ def process(text):
                 speak = False
     return {'message': toReturn, 'image': image}
 
-if __name__ == '__main__':
+def main(stdscr):
+    # demo code
+    console = asyncconsole.AsyncConsole(stdscr)
     exit = False
-    while not exit:
-        query = raw_input('> ')
+    while not exit and console.readline():
+        query = console.input_string
+        console.addline('Q: ' + query)
         if query.lower() == 'quit':
             exit = True
         returned = {}
@@ -105,6 +119,30 @@ if __name__ == '__main__':
                 returned = {'message': 'Unable to perform desired action. Processing error occured.', 'image': 'None'}
         else:
             returned = process(query)
-        print(returned['message'])
+        console.addline('R: ' + returned['message'])
         if speak:
             voice.speak(returned['message'])
+
+
+
+if __name__ == '__main__':
+    type = 'curses'
+    if type == 'curses':
+        curses.wrapper(main)
+    else:
+        exit = False
+        while not exit:
+            query = raw_input('> ')
+            if query.lower() == 'quit':
+                exit = True
+            returned = {}
+            if failsafe:
+                try:
+                    returned = process(query)
+                except:
+                    returned = {'message': 'Unable to perform desired action. Processing error occured.', 'image': 'None'}
+            else:
+                returned = process(query)
+            print(returned['message'])
+            if speak:
+                voice.speak(returned['message'])
