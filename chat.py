@@ -5,15 +5,15 @@ offline = False
 # Global Imports
 import curses
 from curses import textpad
-
-# Local Imports
-import intent
-import voice
 import sys
 import os
 import time
 import requests as r
 import json
+
+# Local Imports
+import intent
+import voice
 import mechanics
 import asyncconsole
 
