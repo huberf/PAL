@@ -44,13 +44,13 @@ for i in intentsJson:
 
 def process(text):
     global engine
-    to_return = None
+    none_applicable = True
+    #print(list(engine.determine_intent(text)))
     for intent in engine.determine_intent(text):
         if intent and intent.get('confidence') > 0:
-            to_return = intent
-        else:
-            to_return = {"intent_type": "None"}
-    return to_return
+            none_applicable = False
+            return intent
+    return None #{"intent_type": "None"}
 
 
 if __name__ == "__main__":
