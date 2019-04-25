@@ -42,6 +42,21 @@ for i in intentsJson:
         do_nothing = True
     engine.register_intent_parser(intent)
 
+def check_regex(text):
+    for i in intentsJson:
+        try:
+            regex = i['regex']
+            for i in regex:
+                print(i)
+                hit = False
+                if hit:
+                    response = {
+                            'intent_type': i['name'],
+                            i[0]: None # TODO: Make actual
+                            }
+        except:
+            pass
+
 def process(text):
     global engine
     none_applicable = True
