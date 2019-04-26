@@ -145,6 +145,33 @@ def search(params):
 def setLocation(params):
     return "Skill under construction."
 
+
+def dictionary(params):
+    try:
+        from PyDictionary import PyDictionary
+    except:
+        return "You need to install PyDictionary library"
+    dictionary=PyDictionary()
+    print(params)
+    word = params['DictionaryWord']
+    definition = dictionary.meaning(word)
+    response = ""
+    for i in definition.keys():
+        response += "{0}: {1}\n".format(i, definition[i])
+    return response
+
+def palBud(params):
+    if not config['keys']['particle'] == 'None':
+        var = 'lightLevel'
+        device = 'Arduino-Terra'
+        accessToken = config['keys']['particle']
+        response = r.get('https://api.particle.io/v1/devices/Arduino-Terra/' + var + '?access_token=' + accessToken)
+        data = json.loads(response.text)
+        value = data['result']
+        return 'The light level is {}'.format(value)
+    else:
+        return 'You need to configure the pal bud feature'
+
 def testIntent(params):
     print(params)
     return 'Test complete'
@@ -164,5 +191,7 @@ functions = {
         'ExerciseManager': exerciseManager,
         'Search': search,
         'SetLocation': setLocation,
+        'Dictionary': dictionary,
+        'PalBud': palBud,
         'TestIntent': testIntent
         }
