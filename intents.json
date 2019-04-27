@@ -22,13 +22,11 @@
   },
   {
     "name": "StartIntent",
-    "verbage": [
-      ["StartVerb", ["start", "open", "launch"]]
-    ],
+    "verbage": [["StartVerb", ["start", "open", "launch", "start up", "please begin to start"]]],
     "optional": [
       ["ApplicationName", ["todoist", "vim"]]
     ],
-    "regex": [["Application", ["open (?P<Application>.*)", "start (?P(<Application>.*)", "launch (?P<Application>.*)"]]]
+    "regex": [["Application", ["open (?P<Application>.*)", "start (?P<Application>.*)", "launch (?P<Application>.*)"]]]
   },
   {
     "name": "SwitchIntent",
@@ -96,7 +94,18 @@
     "name": "SetLocation",
     "verbage": [["SetLocationVerb", ["set location to", "switch location to", "update location to"]]],
     "optional": [],
-    "regex": [["NewLocation", ["to (?P<NewLocation>.*)"]]]
+    "regex": [["NewLocation", ["location to (?P<NewLocation>.*)"]]]
+  },
+  {
+    "name": "Dictionary",
+    "verbage": [["DictionaryVerb", ["define", "definition of"]]],
+    "optional": [],
+    "regex": [["DictionaryWord", ["define (?P<DictionaryWord>.*)", "definition of (?P<DictionaryWord>.*)"]]]
+  },
+  {
+    "name": "PalBud",
+    "verbage": [["GetBudValue", ["what is the light level", "what is the sensor value"]]],
+    "optional": []
   },
   {
     "name": "TestIntent",
