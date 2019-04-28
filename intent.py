@@ -1,4 +1,5 @@
 import json
+import re
 import sys
 from adapt.entity_tagger import EntityTagger
 from adapt.tools.text.tokenizer import EnglishTokenizer
@@ -46,16 +47,24 @@ def check_regex(text):
     for i in intentsJson:
         try:
             regex = i['regex']
-            for i in regex:
-                print(i)
+        except KeyError: # Intent has no regex section
+            regex = None
+        if regex:
+            for j in regex:
                 hit = False
+                var_val = None
+                for clause in j[1]:
+                    found = re.search(clause, text)
+                    if not found == None:
+                        var_val = found.group(1)
+                        hit = True
                 if hit:
                     response = {
                             'intent_type': i['name'],
-                            i[0]: None # TODO: Make actual
+                            j[0]: var_val
                             }
-        except:
-            pass
+                    return response # TODO: Collect all matches
+    return None
 
 def process(text):
     global engine
@@ -65,6 +74,9 @@ def process(text):
         if intent and intent.get('confidence') > 0:
             none_applicable = False
             return intent
+    intent = check_regex(text)
+    if intent:
+        return intent
     return None #{"intent_type": "None"}
 
 
