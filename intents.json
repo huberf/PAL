@@ -23,15 +23,13 @@
   {
     "name": "StartIntent",
     "verbage": [["StartVerb", ["start", "open", "launch", "start up", "please begin to start"]]],
-    "optional": [
-      ["ApplicationName", ["todoist", "vim"]]
-    ],
+    "optional": [],
     "regex": [["Application", ["open (?P<Application>.*)", "start (?P<Application>.*)", "launch (?P<Application>.*)"]]]
   },
   {
     "name": "SwitchIntent",
     "verbage": [
-      ["Application", ["off", "on"]],
+      ["SwitchPosition", ["off", "on"]],
       ["Item", ["voice"]]
     ],
     "optional": [
