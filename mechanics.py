@@ -39,15 +39,15 @@ def startIntent(params):
         return "Launching application " + applicationName + '.'
 
 def switchIntent(params):
-    toReturn = 'Switching ' + params['Item'] + ' ' + params['Application']
+    toReturn = 'Switching ' + params['Item'] + ' ' + params['SwitchPosition']
     cmd = 'SPEAK.VOICE_ON'
     if params['Item'] == 'voice':
-        if params['Application'] == 'on':
+        if params['SwitchPosition'] == 'on':
             if params['SPEAK.VOICE_STATUS']:
                 toReturn = 'My voice is already on.'
             else:
                 speak = True
-        elif params['Application'] == 'off':
+        elif params['SwitchPosition'] == 'off':
             cmd = 'SPEAK.VOICE_OFF'
             if params['SPEAK.VOICE_STATUS']:
                 speak = False
@@ -152,12 +152,18 @@ def dictionary(params):
     except:
         return "You need to install PyDictionary library"
     dictionary=PyDictionary()
-    print(params)
     word = params['DictionaryWord']
     definition = dictionary.meaning(word)
+    if not definition:
+        return 'Word not found. Try again.'
     response = ""
     for i in definition.keys():
-        response += "{0}: {1}\n".format(i, definition[i])
+        definitions = list('{0}) {1}. '.format(j+1,val) for j,val in enumerate(definition[i]))
+        formatted_definitions = ''
+        for j in definitions:
+            formatted_definitions += j
+        response += "{0}: {1}\n".format(i, formatted_definitions)
+    response = response[:-1]
     return response
 
 def palBud(params):
