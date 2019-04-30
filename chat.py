@@ -5,15 +5,15 @@ offline = False
 # Global Imports
 import curses
 from curses import textpad
+
+# Local Imports
+import intent
+import voice
 import sys
 import os
 import time
 import requests as r
 import json
-
-# Local Imports
-import intent
-import voice
 import mechanics
 import asyncconsole
 
@@ -92,6 +92,10 @@ def process(text):
             output = mechanics.functions[action['intent_type']](action)
         else:
             output = 'Unfortunately, the skill requested doesn\'t work with your current setup.'
+        try: # For Python3
+            unicode
+        except:
+            unicode = str
         if isinstance(output, (str, unicode)):
             toReturn = output
         else:
