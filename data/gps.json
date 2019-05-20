@@ -1,2 +1,12 @@
-[
-]
+{
+  "current_location": {
+    "name": "Columbia University",
+    "latlong": "40.8075355,-73.96257270000001"
+  },
+  "locations": [
+    {
+      "name": "Columbia University",
+      "latlong": "40.8075355,-73.96257270000001"
+    }
+  ]
+}
