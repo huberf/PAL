@@ -146,13 +146,14 @@ def setLocation(params):
     location_data = json.loads(open('data/gps.json').read())
     location_list = location_data['locations']
     location_name = params['NewLocation']
+    old_location_name = location_data['current_location']['name']
     for i in location_list:
         if i['name'].lower() == location_name.lower():
             location_data['current_location']['name'] = i['name']
             location_data['current_location']['latlong'] = i['latlong']
             # Save new location information
-            open('data/gps.json').write(json.dumps(location_data))
-            return 'Changed location from {0} to {1}'.format(location_data['current_location']['name'], i['name'])
+            open('data/gps.json', 'w').write(json.dumps(location_data, indent=4))
+            return 'Changed location from {0} to {1}'.format(old_location_name, i['name'])
     return 'Location {0} not found in currently known ones'.format(location_name)
 
 
