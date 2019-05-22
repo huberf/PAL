@@ -71,7 +71,7 @@ def query_clara(text):
     return resp
 
 def process(text):
-    global speak, claraLocation, query_user
+    global speak, claraLocation, query_user, gps_info
     action = intent.process(text)
     toReturn = 'None'
     image = 'None'
@@ -104,6 +104,8 @@ def process(text):
                 speak = True
             elif output['cmd'] == 'SPEAK.VOICE_OFF':
                 speak = False
+            elif output['cmd'] == 'LOCATION.REFRESH':
+                gps_info = json.load(open('data/gps.json'))
     return {'message': toReturn, 'image': image}
 
 def main(stdscr):

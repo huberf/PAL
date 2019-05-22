@@ -3,8 +3,10 @@ import os
 myWeather = w.Weather(os.environ['DARK_SKY_KEY'])
 
 def actuate(info):
+  gpsData = info['LOCATION.GPS']
+  coordinates = gpsData['current_location']['latlong']
   response = ""
-  weather  =  myWeather.current('35.1391218,-85.99808539999998')
+  weather  =  myWeather.current(coordinates)
   if info["WeatherKeyword"] == "weather":
     distance = weather["nearestStormDistance"]
     if(distance < 5):
